@@ -1,0 +1,301 @@
+        {
+            "featureId": 102679,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "[data-access=\"cms:ent_basic_info_btn\"]"
+            },
+            "description": "数据访问权限元素 \"cms:ent_basic_info_btn\""
+        }
+        {
+            "featureId": 102681,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#rc-tabs-0-tab-headOffice"
+            },
+            "description": "数据访问权限元素 首页我创建的"
+        }
+                {
+            "featureId": 102682,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "在建项目",
+                "nth": 6
+            },
+            "description": "数据访问权限元素 首页我创建的"
+        }
+                {
+            "featureId": 102684,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "近一年用工趋势",
+                "nth": 4
+            },
+            "description": "数据访问权限元素 近一年用工趋势"
+        }
+        {
+            "featureId": 102686,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "监管预警",
+                "nth": 4
+            },
+            "description": "数据访问权限元素 监管预警"
+        }
+                {
+            "featureId": 102688,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "发薪",
+                "nth": 4
+            },
+            "description": "数据访问权限元素 发薪"
+        }
+                {
+            "featureId": 102690,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "施工健康度",
+                "nth": 4
+            },
+            "description": "数据访问权限元素 施工健康度"
+        }
+                {
+            "featureId": 102692,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#rc-tabs-0-tab-branchOffice"
+            },
+            "description": "数据访问权限元素 我参与的"
+        }
+
+                {
+            "featureId": 102693,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "在建项目",
+                "nth": 8
+            },
+            "needClick": {
+                "selector": {
+                    "base": "#rc-tabs-0-tab-branchOffice"
+                }
+            },
+            "description": "数据访问权限元素 我参与的项目列表"
+        }
+                {
+            "featureId": 102697,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "发薪",
+                "nth": 4
+            },
+            "needClick": {
+                "selector": {
+                    "base": "#rc-tabs-0-tab-branchOffice"
+                }
+            },
+            "description": "数据访问权限元素 发薪"
+        }
+                {
+            "featureId": 102699,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": ".help-center",
+                "withText": "帮助中心"
+            },
+            "needClick": {
+                "selector": {
+                    "base": "#rc-tabs-0-tab-branchOffice"
+                }
+            },
+            "description": "数据访问权限元素 帮助中心"
+        }
+                {
+            "featureId": 102700,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "用工趋势"
+            },
+            "needClick": {
+                "selector": {
+                    "base": "#rc-tabs-0-tab-branchOffice"
+                }
+            },
+            "description": "数据访问权限元素 用工趋势"
+        }
+                {
+            "featureId": 102702,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "施工健康度",
+                "nth": 2
+            },
+            "needClick": {
+                "selector": {
+                    "base": "#rc-tabs-0-tab-branchOffice"
+                }
+            },
+            "description": "数据访问权限元素 施工健康度"
+        }
+
+
+
+
+
+
+                {
+            "featureId": 102679,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "[data-access=\"cms:ent_basic_info_btn\"]"
+            },
+            "description": "数据访问权限元素 \"cms:ent_basic_info_btn\""
+        },
+        {
+            "featureId": 102681,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#rc-tabs-0-tab-headOffice"
+            },
+            "description": "数据访问权限元素 首页我创建的"
+        },
+        {
+            "featureId": 102682,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "在建项目",
+                "nth": 6
+            },
+            "description": "数据访问权限元素 首页我创建的"
+        },
+        {
+            "featureId": 102684,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "近一年用工趋势",
+                "nth": 4
+            },
+            "description": "数据访问权限元素 近一年用工趋势"
+        },
+        {
+            "featureId": 102686,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "监管预警",
+                "nth": 4
+            },
+            "description": "数据访问权限元素 监管预警"
+        },
+        {
+            "featureId": 102688,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "发薪",
+                "nth": 4
+            },
+            "description": "数据访问权限元素 发薪"
+        },
+        {
+            "featureId": 102690,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "施工健康度",
+                "nth": 4
+            },
+            "description": "数据访问权限元素 施工健康度"
+        },
+        {
+            "featureId": 102692,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#rc-tabs-0-tab-branchOffice"
+            },
+            "description": "数据访问权限元素 我参与的"
+        },
+        {
+            "featureId": 102693,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "在建项目",
+                "nth": 8
+            },
+            "needClick": {
+                "selector": {
+                    "base": "#rc-tabs-0-tab-branchOffice"
+                }
+            },
+            "description": "数据访问权限元素 我参与的项目列表"
+        },
+        {
+            "featureId": 102697,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "发薪",
+                "nth": 4
+            },
+            "needClick": {
+                "selector": {
+                    "base": "#rc-tabs-0-tab-branchOffice"
+                }
+            },
+            "description": "数据访问权限元素 我参与的-发薪"
+        },
+        {
+            "featureId": 102699,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": ".help-center",
+                "withText": "帮助中心"
+            },
+            "needClick": {
+                "selector": {
+                    "base": "#rc-tabs-0-tab-branchOffice"
+                }
+            },
+            "description": "数据访问权限元素 我参与的-帮助中心"
+        },
+        {
+            "featureId": 102700,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "用工趋势"
+            },
+            "needClick": {
+                "selector": {
+                    "base": "#rc-tabs-0-tab-branchOffice"
+                }
+            },
+            "description": "数据访问权限元素 我参与的-用工趋势"
+        },
+        {
+            "featureId": 102702,
+            "defaultRole": "qiye",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "施工健康度",
+                "nth": 2
+            },
+            "needClick": {
+                "selector": {
+                    "base": "#rc-tabs-0-tab-branchOffice"
+                }
+            },
+            "description": "数据访问权限元素 我参与的-施工健康度"
+        }

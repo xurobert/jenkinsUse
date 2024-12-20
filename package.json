@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "axios": "^1.7.7",
+    "form-data": "^4.0.1",
+    "reusify": "^1.0.4",
+    "sharp": "^0.33.5",
+    "testcafe": "^3.7.0"
+  },
+  "scripts": {
+    "test": "node run-tests.js",
+    "test:cms": "testcafe chrome inspection_online_cms.js",
+    "test:oms": "testcafe chrome inspection_online_oms.js"
+  },
+  "type": "module"
+}

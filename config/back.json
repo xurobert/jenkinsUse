@@ -1,0 +1,30 @@
+{
+    "accessElements": [
+        {
+            "featureId": 102659,
+            "defaultRole": "zongbao",
+            "selector": "[data-access=\"cms:ent_basic_info_btn\"]",
+            "description": "数据访问权限元素 \"cms:ent_basic_info_btn\""
+        }
+
+        ,{
+            "featureId": 102659,
+            "defaultRole": "zongbao",
+            "selector": "[data-access=\"cms:ent_basic_info_btn\"]",
+            "description": "数据访问权限元素 \"cms:ent_basic_info_btn\""
+        },
+        {
+            "featureId": 102659,
+            "defaultRole": "zongbao",
+            "selector": "[data-detail-access=\"cms:ent_basic_info_btn\"]",
+            "description": "详情数据访问权限元素 \"cms:ent_basic_info_btn\""
+        },
+        {
+            "featureId": 102659,
+            "defaultRole": "zongbao",
+            "selector": "[data-detail-access=\"cms:ent_basic_info_btn112\"]",
+            "description": "测试用假的元素详情数据访问权限元素 \"cms:ent_basic_info_btn112\""
+        }
+    ]
+    
+} 

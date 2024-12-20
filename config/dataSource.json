@@ -1,0 +1,23 @@
+{
+    "checkpointList": [
+        {
+            "name": "监管预警",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "监管预警",
+                "nth": 4
+            }
+        },{
+            "name": "我参与的发薪",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "发薪",
+                "nth": 4
+            },
+            "needClick": {
+                "selector": {
+                    "base": "#rc-tabs-0-tab-branchOffice"
+                }
+            }}
+    ]
+}
