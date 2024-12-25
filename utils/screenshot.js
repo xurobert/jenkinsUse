@@ -1,5 +1,41 @@
 import fs from 'fs';
 import path from 'path';
+const OSS = require('ali-oss');
+
+// 阿里云 OSS 配置
+const client = new OSS({
+  region: 'your-region', // 例如 'oss-cn-hangzhou'
+  accessKeyId: 'your-access-key-id',
+  accessKeySecret: 'your-access-key-secret',
+  bucket: 'your-bucket-name'
+});
+
+// NAS 共享目录路径
+const nasPath = '/path/to/your/nas/directory';
+
+// 上传文件的函数
+async function uploadToOSS(filePath) {
+    try {
+        const result = await client.put('your-upload-path/' + filePath, filePath);
+        console.log('上传成功：', result.url);
+        return result.url; // 返回文件的 URL
+    } catch (err) {
+        console.error('上传失败：', err);
+    }
+}
+
+// 上传文件的函数
+async function uploadToNAS(filePath) {
+    const destinationPath = path.join(nasPath, path.basename(filePath));
+    try {
+        // 复制文件到 NAS
+        fs.copyFileSync(filePath, destinationPath);
+        console.log('上传成功：', destinationPath);
+        return destinationPath; // 返回文件的路径
+    } catch (err) {
+        console.error('上传失败：', err);
+    }
+}
 
 // 创建目录的函数
 export function ensureDirectoryExists(dirPath) {

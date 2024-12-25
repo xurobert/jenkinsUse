@@ -1,53 +1,33 @@
 import axios from 'axios';
-import FormData from 'form-data';
 import fs from 'fs';
+import OSS from 'ali-oss';
+import path from 'path';
 
 // 钉钉机器人配置
 const DINGTALK_WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=7306de9f80aa250d9f0bd2943aacc51aabd3e0e02e69cd7bd0d903fe3a2c8eac";
 
-// ImgBB API密钥
-const IMGBB_API_KEY = '27b58186ff94a19c7af7933993f0d1eb';
+// 添加阿里云OSS配置
+const ossClient = new OSS({
+  region: 'oss-cn-chengdu',  // 例如：'oss-cn-hangzhou'
+  accessKeyId: 'LTAI5tGr5aPs9tsK4A4tEdwD',
+  accessKeySecret: 'zUkNjAIeJifjLVK0us7FRSmVHIQTIP',
+  bucket: 'photos-xurobert'
+});
 
-// 上传图片到ImgBB - 使用 FormData 方式
-export async function uploadToImgBB(imagePath) {
-    try {
-        console.log(`开始上传图片: ${imagePath}`);
-        
-        // 检查文件是否存在
-        if (!fs.existsSync(imagePath)) {
-            throw new Error(`文件不存在: ${imagePath}`);
-        }
-
-        // 创建 FormData 实例
-        const formData = new FormData();
-        formData.append('image', fs.createReadStream(imagePath));
-
-        // 发送请求
-        const response = await axios.post(
-            `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
-            formData,
-            {
-                headers: {
-                    ...formData.getHeaders(),
-                },
-                maxContentLength: Infinity,
-                maxBodyLength: Infinity
-            }
-        );
-
-        if (!response.data?.data?.url) {
-            throw new Error('ImgBB 返回的数据格式不正确');
-        }
-
-        console.log('图片上传成功，URL:', response.data.data.url);
-        return response.data.data.url;
-    } catch (error) {
-        console.error('上传图片到ImgBB失败:', error.message);
-        if (error.response) {
-            console.error('ImgBB API 响应:', error.response.data);
-        }
-        throw error;
-    }
+// 添加上传到OSS的函数
+async function uploadToOSS(filePath) {
+  try {
+    const fileName = filePath.startsWith('/') 
+      ? filePath.slice(1)  // 如果是绝对路径，去掉开头的斜杠
+      : filePath;          // 如果是相对路径，直接使用
+    
+    const result = await ossClient.put(fileName, filePath);
+    console.log('OSS上传成功，URL:', result.url);
+    return result.url;
+  } catch (error) {
+    console.error('上传到OSS失败:', error);
+    throw error;
+  }
 }
 
 // 发送文本消息到钉钉
@@ -87,7 +67,7 @@ export async function sendImagesToDingTalk(images, title, t) {
         const imageUrls = await Promise.all(
             images.map(async img => {
                 const path = img.path || img.fullPath;
-                const url = await uploadToImgBB(path);
+                const url = await uploadToOSS(path);
                 return { name: img.name, url };
             })
         );

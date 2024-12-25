@@ -13,3 +13,7 @@ build/
 
 # 忽略环境变量文件
 .env
+
+# 忽略 screenshots 目录及其所有内容
+/screenshots/
+screenshots/**/*

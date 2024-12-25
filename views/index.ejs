@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的相册</title>
+</head>
+<body>
+    <h1>上传图片</h1>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" required>
+        <button type="submit">上传</button>
+    </form>
+
+    <h2>相册</h2>
+    <div>
+        <!-- 在这里展示上传的图片 -->
+        <% images.forEach(image => { %>
+            <img src="/uploads/<%= image %>" alt="Image" style="width: 200px; height: auto;">
+        <% }) %>
+    </div>
+</body>
+</html> 

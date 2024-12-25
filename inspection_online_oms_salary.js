@@ -84,7 +84,7 @@ test('系统登录及页面截图测试', async t => {
         try {
             await t
                 .click(screenshot.selector)
-                .wait(10000);
+                .wait(15000);
 
             // 检查是否存在"暂无数据"
             const noDataExists = await Selector('#report-center-table td').withText('暂无数据').exists;
