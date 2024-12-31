@@ -65,7 +65,25 @@ test('系统登录及页面截图测试', async t => {
                 .wait(10000);
 
             // 检查是否存在"暂无数据"
-            const noDataExists = await Selector('#report-center-table td').withText('暂无数据').exists;
+            let noDataExists = await Selector('#report-center-table td').withText('暂无数据').exists;
+
+            if (noDataExists) {
+                // 点击查询按钮并等待
+                try {
+                    await t
+                        .click(Selector('button').withText('查 询'))
+                        .wait(10000);  // 等待10秒
+    
+                    // 再次检查是否存在"暂无数据"
+                    noDataExists = await Selector('#report-center-table td')
+                        .withText('暂无数据')
+                        .exists;
+                    
+                    console.log(`${screenshot.name} 查询后状态: ${noDataExists ? '仍无数据' : '已有数据'}`);
+                } catch (error) {
+                    console.error('点击查询按钮失败:', error);
+                }
+            }
             
             if (noDataExists) {
                 console.log(`${screenshot.name} 暂无数据，开始截图`);

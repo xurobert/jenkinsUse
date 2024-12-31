@@ -41,32 +41,32 @@ test('系统登录及页面截图测试', async t => {
     const reportScreenshots = [
         {
             name: '项目发薪',
-            selector: Selector('#rc-tabs-0-tab-Oms_reportCenter_workspace_salary'),
+            selector: Selector('#rc-tabs-0-tab-ReportCenter_salary_workspace'),
             fileName: 'workspace_stats_salary'
         },
         {
             name: '工程发薪',
-            selector: Selector('#rc-tabs-0-tab-Oms_reportCenter_pro_salary'),
+            selector: Selector('#rc-tabs-0-tab-ReportCenter_salary_project'),
             fileName: 'project_stats_salary'
         },
         {
             name: '单位发薪',
-            selector: Selector('#rc-tabs-0-tab-Oms_reportCenter_unit_salary'),
+            selector: Selector('#rc-tabs-0-tab-ReportCenter_salary_ou'),
             fileName: 'unit_stats_salary'
         },
         {
             name: '班组发薪',
-            selector: Selector('#rc-tabs-0-tab-Oms_reportCenter_team_salary'),
+            selector: Selector('#rc-tabs-0-tab-ReportCenter_salary_team'),
             fileName: 'team_stats_salary'
         },
         {
             name: '小组发薪',
-            selector: Selector('#rc-tabs-0-tab-Oms_reportCenter_group_salary'),
+            selector: Selector('#rc-tabs-0-tab-ReportCenter_salary_group'),
             fileName: 'group_stats_salary'
         },
         {
             name: '工人发薪',
-            selector: Selector('#rc-tabs-0-tab-Oms_reportCenter_worker_salary'),
+            selector: Selector('#rc-tabs-0-tab-ReportCenter_salary_worker'),
             fileName: 'worker_details_salary'
         }
     ].map(screenshot => ({
@@ -78,16 +78,35 @@ test('系统登录及页面截图测试', async t => {
 
     // 修改截图操作部分
     for (const screenshot of reportScreenshots) {
-        await t
-        .wait(7000); // 给予更多时间等待 iframe 加载
+        await t.wait(7000);
         console.log(`准备检查: ${screenshot.name}`);
+        
         try {
             await t
+                .expect(screenshot.selector.exists).ok({ timeout: 10000 })
                 .click(screenshot.selector)
                 .wait(15000);
 
             // 检查是否存在"暂无数据"
-            const noDataExists = await Selector('#report-center-table td').withText('暂无数据').exists;
+            let noDataExists = await Selector('#report-center-table td')
+                .withText('暂无数据')
+                .exists;
+            
+            if (noDataExists) {
+                // 点击查询按钮并等待
+                try {
+                    await t
+                        .click(Selector('button').withText('查 询'))
+                        .wait(10000);  // 等待10秒
+
+                    // 再次检查是否存在"暂无数据"
+                    noDataExists = await Selector('#report-center-table td')
+                        .withText('暂无数据')
+                        .exists;
+                } catch (error) {
+                    console.error('点击查询按钮失败:', error);
+                }
+            }
             
             if (noDataExists) {
                 console.log(`${screenshot.name} 暂无数据，开始截图`);
@@ -106,7 +125,8 @@ test('系统登录及页面截图测试', async t => {
                 console.log(`${screenshot.name} 有数据，跳过截图`);
             }
         } catch (error) {
-            console.error(`截图过程出错:`, error);
+            console.error(`处理 ${screenshot.name} 时出错:`, error);
+            continue;
         }
     }
 
