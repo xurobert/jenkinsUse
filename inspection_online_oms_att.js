@@ -135,41 +135,35 @@ test('系统登录及页面截图测试', async t => {
     // 在发送钉钉消息之前添加判断
     if (screenshotsTaken.length === 0) {
         // 如果没有截图，发送巡检通过的消息
-        await sendDingTalkMessage({
-            msgtype: 'text',
-            text: {
-                content: `${dateDir} OMS系统考勤数据巡检通过，所有页面均有数据。`
-            }
-        });
-        console.log('巡检通过，无需发送截图');
-    } else {
-        // 如果有截图，处理并发送截图
-        console.log(`开始处理${screenshotsTaken.length}张图片`);
-        
-        // 处理截图文件信息
-        for (const screenshot of screenshotsTaken) {
-            const stats = fs.statSync(screenshot.path);
-            console.log(`文件 ${screenshot.path} 大小: ${stats.size} bytes`);
+        try {
+            await sendImagesToDingTalk([], `${formatDate} OMS系统考勤数据巡检通过，所有页面均有数据。`, t);
+            console.log('巡检通过，无需发送截图');
+        } catch (error) {
+            console.error('发送通过消息失败:', error);
         }
-        
-        // 上传图片并发送钉钉消息
-        const uploadPromises = screenshotsTaken.map(screenshot => 
-            uploadImage(screenshot.path)
-        );
-        
-        const imageUrls = await Promise.all(uploadPromises);
-        
-        // 构建消息内容
-        const messageContent = `${dateDir} OMS系统考勤数据巡检发现以下页面暂无数据：\n` +
-            screenshotsTaken.map((screenshot, index) => 
-                `${screenshot.name}：${imageUrls[index]}`
-            ).join('\n');
-        
-        await sendDingTalkMessage({
-            msgtype: 'text',
-            text: {
-                content: messageContent
-            }
+    } else {
+        // 如果有截图，处理并发送
+        const screenshotsToSend = screenshotsTaken.map(screenshot => {
+            const stats = fs.statSync(screenshot.fullPath);
+            console.log(`准备发送文件: ${screenshot.fullPath}, 大小: ${stats.size} bytes`);
+            
+            return {
+                path: screenshot.fullPath,
+                name: screenshot.name,
+                uploadPath: screenshot.fullPath
+            };
         });
+        
+        try {
+            await sendImagesToDingTalk(
+                screenshotsToSend, 
+                `${formatDate} OMS系统考勤数据巡检发现以下页面暂无数据：\n${
+                    screenshotsTaken.map(s => s.name).join('\n')
+                }`, 
+                t
+            );
+        } catch (error) {
+            console.error('发送到钉钉失败:', error);
+        }
     }
 });
