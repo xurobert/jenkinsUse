@@ -299,3 +299,130 @@
             },
             "description": "数据访问权限元素 我参与的-施工健康度"
         }
+
+
+
+
+        ,
+
+
+
+import { Selector } from 'testcafe';
+import fs from 'fs';
+import path from 'path';
+import { sendImagesToDingTalk } from './utils/dingTalk.js';
+
+
+// 读取配置文件
+const checkpointConfigPath = path.join(__dirname, 'config', 'checkpoint.json');
+const dataSourceConfigPath = path.join(__dirname, 'config', 'dataSource.json');
+
+const readJsonFile = (filePath) => {
+    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+};
+
+// 读取 checkpoint 和 dataSource 配置
+const checkpointConfig = readJsonFile(checkpointConfigPath);
+const dataSourceConfig = readJsonFile(dataSourceConfigPath);
+
+// 定义测试套件
+fixture `检查点验证`
+    .page `https://cms.axzo.cn/`
+    .skipJsErrors();
+// 用于收集测试结果
+let testResults = {
+    passedCheckpoints: [],
+    failedCheckpoints: [],
+    startTime: '',
+    endTime: ''
+};
+
+// 修改选择器构建逻辑
+const buildSelector = (selectorConfig) => {
+    let selector = Selector(selectorConfig.base);
+    
+    // 如果存在 withText，添加 withText 条件
+    if (selectorConfig.withText) {
+        selector = selector.withText(selectorConfig.withText);
+    }
+    
+    // 如果存在 nth，添加 nth 条件
+    if (typeof selectorConfig.nth === 'number') {
+        selector = selector.nth(selectorConfig.nth);
+    }
+    
+    return selector;
+};
+
+// 登录并验证检查点
+for (const user of checkpointConfig.checkpointList) {
+    test(`用户 ${user.phone} 登录并验证检查点`, async t => {
+        // 登录操作
+        const loginElements = {
+            smsLoginButton: Selector('#app span').withText('短信登录'),
+            phoneInput: Selector('#form_item_account'),
+            getCodeButton: Selector('#app span').withText('获取验证码').nth(2),
+            loginButton: Selector('#app button').withText('登录 / 注册'),
+            loginSuccess: Selector('div').withText('企业首页')
+        };
+    
+        // 执行登录操作
+        await t
+            .maximizeWindow()
+            .click(loginElements.smsLoginButton)
+            .typeText(loginElements.phoneInput, user.phone)
+            .click(loginElements.getCodeButton)
+            .wait(1000)
+            .click(loginElements.loginButton)
+            .expect(loginElements.loginSuccess.exists).ok({ timeout: 10000 })
+            .wait(1000);
+
+        // 验证每个检查点
+        for (const checkpoint of user.checkpointList) {
+            const dataSourceItem = dataSourceConfig.checkpointList.find(item => item.name === checkpoint);
+            if (dataSourceItem) {
+                // console.log('当前检查项配置:', JSON.stringify(dataSourceItem, null, 2));
+                // console.log('是否配置了点击:', !!dataSourceItem.needClick);
+                // console.log('点击选择器:', dataSourceItem.needClick?.selector);
+                
+                const selector = buildSelector(dataSourceItem.selector);
+                let exists = false;
+                try {
+                    await t.expect(selector.exists).ok({ 
+                        timeout: 10000,
+                        message: `等待元素 "${dataSourceItem.name}" 超时`
+                    });
+                    exists = await selector.exists;
+                    console.log(`成功找到元素: ${dataSourceItem.name}`);
+
+                    // 如果配置了 needClick，执行点击操作
+                    if (dataSourceItem.needClick && dataSourceItem.needClick.selector) {
+                        console.log(`准备点击元素: ${dataSourceItem.name}`);
+                        const clickSelector = buildSelector(dataSourceItem.needClick.selector);
+                        
+                        try {
+                            await t
+                                .expect(clickSelector.exists).ok({ timeout: 5000 })
+                                .click(clickSelector)
+                                .wait(2000);  // 点击后等待页面响应
+                            console.log(`成功点击元素: ${dataSourceItem.name}`);
+                        } catch (error) {
+                            console.error(`点击元素失败: ${dataSourceItem.name}`, error);
+                        }
+                    }
+                } catch (error) {
+                    console.error(`查找元素失败: ${dataSourceItem.name}`, error);
+                    exists = false;
+                }
+
+                if (exists) {
+                    console.log(`检查点 "${checkpoint}" 存在。`);
+                } else {
+                    console.error(`检查点 "${checkpoint}" 不存在。`);
+                }
+            } else {
+                console.error(`未找到检查点 "${checkpoint}" 的数据源配置。`);
+            }
+        }
+    });
+} 

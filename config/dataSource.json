@@ -1,23 +1,461 @@
 {
     "checkpointList": [
         {
-            "name": "监管预警",
+            "name": "企业基础信息",
             "selector": {
+                "base": "div[data-v-29e1c6b6].ent-info"
+            }
+        },
+        {
+            "name": "我创建的",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "我创建的",
+                "nth": 4
+            }
+        },
+        {
+            "name": "我参与的",
+            "selector": {
+                "base": "#main-content div",
+                "withText": "我参与的",
+                "nth": 4
+            }
+        },
+        {
+            "name": "在建项目",
+            "selector": {
+                "base": ".building-pros .title",
+                "withText": "在建项目"
+            }
+        },
+        {
+            "name": "近一年用工趋势",
+            "selector":  {
+                "base": "#main-content div",
+                "withText": "近一年用工趋势",
+                "nth": 4}
+        },
+        {
+            "name": "监管预警",
+            "selector":  {
                 "base": "#main-content div",
                 "withText": "监管预警",
                 "nth": 4
             }
-        },{
-            "name": "我参与的发薪",
-            "selector": {
+        },
+        {
+            "name": "企业首页-发薪",
+            "selector":  {
                 "base": "#main-content div",
                 "withText": "发薪",
-                "nth": 4
+                "nth": 4}
+        },
+        {
+            "name": "施工健康度",
+            "selector":  {
+                "base": "#main-content div",
+                "withText": "施工健康度",
+                "nth": 4}
+        },
+        {
+            "name": "项目首页",
+            "selector": {
+                "base": ".breadcrumb-item",
+                "withText": "项目首页"
+            },
+            "needClick": {
+               "selector": {
+                    "base": "div[id^='project_']",
+                    "withText": "项目"
+                }
+            }
+        },
+        {
+            "name": "项目首页-记工",
+            "selector": {
+                "base": ".title",
+                "withText": "记工"
+            }
+        },
+        {
+            "name": "项目首页-发薪",
+            "selector": {
+                "base": ".title",
+                "withText": "发薪"
+            }
+        },
+        {
+            "name": "项目首页-人员统计",
+            "selector": {
+                "base": ".title",
+                "withText": "人员统计"
+            }
+        },
+        {
+            "name": "项目首页-任务",
+            "selector": {
+                "base": ".title",
+                "withText": "任务"
+            }
+        },
+        {
+            "name": "项目首页-施工健康度",
+            "selector": {
+                "base": ".title",
+                "withText": "施工健康度"
+            }
+        },
+        {
+            "name": "项目报表按钮",
+            "selector": {
+                "base": ".ant-menu-title-content",
+                "withText": "项目报表"
             },
             "needClick": {
                 "selector": {
-                    "base": "#rc-tabs-0-tab-branchOffice"
+                    "base": ".ant-menu-title-content",
+                    "withText": "项目报表"
                 }
-            }}
+            }
+        },
+        {
+            "name": "工程人员统计",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "工程人员统计"
+                },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "人员报表"
+                }
+            }
+        },
+        {
+            "name": "单位人员统计",
+            "selector": {
+                "base": ".ant-tabs-tab-btn",
+                "withText": "单位人员统计"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "人员报表"
+                }
+            }
+        },
+        {
+            "name": "班组人员统计",
+            "selector": {
+                "base": ".ant-tabs-tab-btn",
+                "withText": "班组人员统计"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "人员报表"
+                }
+            }
+        },
+        {
+            "name": "工人信息明细",
+            "selector": {
+                "base": ".ant-tabs-tab-btn",
+                "withText": "工人信息明细"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "人员报表"
+                }
+            }
+        },
+        {
+            "name": "工人属性统计",
+            "selector": {
+                "base": ".ant-tabs-tab-btn",
+                "withText": "工人属性统计"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "人员报表"
+                }
+            }
+        },        
+        {
+            "name": "任务单派发与拆分",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "任务单派发与拆分"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "任务报表"
+                }
+            }
+        },        
+        {
+            "name": "工人任务单统计｜组织",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "工人任务单统计｜组织"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "任务报表"
+                }
+            }
+        },        
+        {
+            "name": "工人任务单统计｜工人",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "工人任务单统计｜工人"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "任务报表"
+                }
+            }
+        },        
+        {
+            "name": "任务逾期统计",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "任务逾期统计"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "任务报表"
+                }
+            }
+        },        
+        {
+            "name": "工程考勤",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "工程考勤"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "考勤报表"
+                }
+            }
+        },        
+        {
+            "name": "单位考勤",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "单位考勤"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "考勤报表"
+                }
+            }
+        },        
+        {
+            "name": "班组考勤",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "班组考勤"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "考勤报表"
+                }
+            }
+        },        
+        {
+            "name": "小组考勤",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "小组考勤"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "考勤报表"
+                }
+            }
+        },        
+        {
+            "name": "工人考勤",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "工人考勤"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "考勤报表"
+                }
+            }
+        },        
+        {
+            "name": "工程记工",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "工程记工"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "记工报表"
+                }
+            }
+        },        
+        {
+            "name": "单位记工",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "单位记工"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "记工报表"
+                }
+            }
+        },        
+        {
+            "name": "班组记工",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "班组记工"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "记工报表"
+                }
+            }
+        },        
+        {
+            "name": "小组记工",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "小组记工"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "记工报表"
+                }
+            }
+        },        
+        {
+            "name": "工人记工",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "工人记工"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "记工报表"
+                }
+            }
+        },        
+        {
+            "name": "应记未记",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "应记未记"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "记工报表"
+                }
+            }
+        },        
+        {
+            "name": "记工归属",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "记工归属"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "记工报表"
+                }
+            }
+        },        
+        {
+            "name": "工程发薪",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "工程发薪"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "发薪报表"
+                }
+            }
+        },        
+        {
+            "name": "单位发薪",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "单位发薪"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "发薪报表"
+                }
+            }
+        },        
+        {
+            "name": "班组发薪",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "班组发薪"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "发薪报表"
+                }
+            }
+        },        
+        {
+            "name": "小组发薪",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "小组发薪"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "发薪报表"
+                }
+            }
+        },        
+        {
+            "name": "工人发薪",
+            "selector": {
+                    "base": ".ant-tabs-tab-btn",
+                    "withText": "工人发薪"
+            },
+            "needClick": {
+                "selector": {
+                    "base": ".ant-menu-title-content",
+                    "withText": "发薪报表"
+                }
+            }
+        }
     ]
 }

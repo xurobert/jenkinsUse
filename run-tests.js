@@ -25,7 +25,8 @@ async function runTests() {
                 path.join(__dirname, 'inspection_online_oms_att.js'),
                 path.join(__dirname, 'inspection_online_oms_rec.js'),
                 path.join(__dirname, 'inspection_online_oms_salary.js'),
-                path.join(__dirname, 'inspection_online_oms_task.js')
+                path.join(__dirname, 'inspection_online_oms_task.js'),
+                path.join(__dirname, 'checkpointsVerification.js')  // 添加新的测试文件
             ])
             .browsers('chrome:headless')
             .concurrency(1)  // 一次运行一个测试
@@ -67,7 +68,9 @@ const testFiles = [
     'inspection_online_oms_att.js',
     'inspection_online_oms_rec.js',
     'inspection_online_oms_salary.js',
-    'inspection_online_oms_task.js'
+    'inspection_online_oms_task.js',
+    'checkpointsVerification.js'  // 添加新的测试文件
+
 ];
 
 testFiles.forEach(file => {
