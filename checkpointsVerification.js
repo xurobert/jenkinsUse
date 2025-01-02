@@ -135,9 +135,6 @@ for (const user of checkpointConfig.checkpointList) {
                             timestamp: new Date().toLocaleString()
                         });
                         console.error(`❌ 检查点 "${checkpoint}" 验证失败:`, error.message);
-                        
-                        // 失败时截图
-                        await t.takeScreenshot();
                     }
                 } else {
                     console.error(`未找到检查点 "${checkpoint}" 的数据源配置。`);
@@ -154,47 +151,11 @@ for (const user of checkpointConfig.checkpointList) {
 
         testResults.endTime = new Date().toLocaleString();
 
-        // 获取失败截图
-        const screenshots = [];
-        const screenshotDir = path.join(process.cwd(), 'screenshots');
-        if (fs.existsSync(screenshotDir)) {
-            const latestDate = fs.readdirSync(screenshotDir).sort().pop();
-            if (latestDate) {
-                const latestTime = fs.readdirSync(path.join(screenshotDir, latestDate)).sort().pop();
-                if (latestTime) {
-                    const screenshotPath = path.join(screenshotDir, latestDate, latestTime);
-                    const files = fs.readdirSync(screenshotPath)
-                        .filter(file => file.endsWith('.png'))
-                        .map(file => ({
-                            path: path.join(screenshotPath, file),
-                            name: file
-                        }));
-                    screenshots.push(...files);
-                }
-            }
-        }
-
-        // 发送结果到钉钉
-        // 先发送 markdown 消息
-        await sendImagesToDingTalk({
-            msgtype: 'markdown',
-            markdown: {
-                title: '项目报表检查点验证结果',
-                text: formatMessage()
-            }
-        });
-
-        // 如果有截图，再逐个发送图片消息
-        // if (screenshots.length > 0) {
-        //     for (const screenshot of screenshots) {
-        //         await sendImagesToDingTalk({
-        //             msgtype: 'image',
-        //             image: {
-        //                 path: screenshot.path,
-        //                 name: screenshot.name
-        //             }
-        //         });
-        //     }
-        // }
+       // 发送结果到钉钉
+       await sendImagesToDingTalk(
+        [], // 空数组作为图片参数
+        '项目报表检查点验证结果', // 标题
+        formatMessage() // 消息内容
+    );
     });
 } 
