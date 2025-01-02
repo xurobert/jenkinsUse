@@ -1,18 +1,10 @@
 import axios from 'axios';
 import fs from 'fs';
-import OSS from 'ali-oss';
 import path from 'path';
+import { ossClient } from '../config/oss.config.js';
 
 // 钉钉机器人配置
 const DINGTALK_WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=7306de9f80aa250d9f0bd2943aacc51aabd3e0e02e69cd7bd0d903fe3a2c8eac";
-
-// 添加阿里云OSS配置
-const ossClient = new OSS({
-  region: 'oss-cn-chengdu',  // 例如：'oss-cn-hangzhou'
-  accessKeyId: 'LTAI5tGr5aPs9tsK4A4tEdwD',
-  accessKeySecret: 'zUkNjAIeJifjLVK0us7FRSmVHIQTIP',
-  bucket: 'photos-xurobert'
-});
 
 // 添加上传到OSS的函数
 async function uploadToOSS(filePath) {

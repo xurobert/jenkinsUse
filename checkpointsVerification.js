@@ -1,7 +1,7 @@
 import { Selector } from 'testcafe';
 import fs from 'fs';
 import path from 'path';
-import { sendImagesToDingTalk } from './utils/notification';
+import { sendMessageToDingTalk } from './utils/notification';
 
 // 读取配置文件
 const checkpointConfigPath = path.join(__dirname, 'config', 'checkpoint.json');
@@ -26,7 +26,7 @@ let testResults = {
 // 格式化消息
 function formatMessage() {
     return `
-### 项目报表检查点验证结果
+### 大数据权限点巡检结果
 #### 📅 执行时间
 - 开始：${testResults.startTime}
 - 结束：${testResults.endTime}
@@ -150,12 +150,11 @@ for (const user of checkpointConfig.checkpointList) {
         }
 
         testResults.endTime = new Date().toLocaleString();
-
-       // 发送结果到钉钉
-       await sendImagesToDingTalk(
-        [], // 空数组作为图片参数
-        '项目报表检查点验证结果', // 标题
-        formatMessage() // 消息内容
-    );
+        
+        const message = formatMessage();
+        console.log('准备发送消息到钉钉:', message);
+        
+        // 发送结果到钉钉
+        await sendMessageToDingTalk(message);
     });
 } 

@@ -17,3 +17,6 @@ build/
 # 忽略 screenshots 目录及其所有内容
 /screenshots/
 screenshots/**/*
+
+# OSS配置文件
+config/oss.config.js
