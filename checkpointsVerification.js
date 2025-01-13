@@ -78,6 +78,7 @@ for (const user of checkpointConfig.checkpointList) {
                 getCodeButton: Selector('#app span').withText('获取验证码').nth(2),
                 loginButton: Selector('#app button').withText('登录 / 注册'),
                 loginSuccess: Selector('div').withText('企业首页')
+                
             };
         
             // 执行登录操作
@@ -90,6 +91,34 @@ for (const user of checkpointConfig.checkpointList) {
                 .click(loginElements.loginButton)
                 .expect(loginElements.loginSuccess.exists).ok({ timeout: 10000 })
                 .wait(1000);
+
+            // 点击登录后的按钮
+            const avatarButton = Selector('div[id="menu-user-img"]');
+            await t
+                .expect(avatarButton.exists).ok({ timeout: 5000 })
+                .click(avatarButton);
+            console.log(`成功点击用户头像菜单按钮`);
+
+            // 点击"更多企业/队伍"选项
+            const moreTeamsButton = Selector('div[class*="_name_"]').withText('更多企业/队伍');
+            await t
+                .expect(moreTeamsButton.exists).ok({ timeout: 5000 })
+                .click(moreTeamsButton);
+            console.log(`成功点击"更多企业/队伍"选项`);
+
+            // 点击特定企业
+            const companyButton = Selector('div[class="ent-name"]').withText('成都倍特建筑安装工程有限公司');
+            await t
+                .expect(companyButton.exists).ok({ timeout: 5000 })
+                .click(companyButton);
+            console.log(`成功点击企业：成都倍特建筑安装工程有限公司`);
+
+            // 等待5秒并验证企业名称是否显示
+            const companyName = Selector('div[class="ent-name"]').withText('成都倍特建筑安装工程有限公司');
+            await t
+                .wait(5000)  // 等待5秒
+                .expect(companyName.exists).ok({ timeout: 5000 });
+            console.log(`成功验证企业名称显示：成都倍特建筑安装工程有限公司`);
 
             // 验证每个检查点
             for (const checkpoint of user.checkpointList) {

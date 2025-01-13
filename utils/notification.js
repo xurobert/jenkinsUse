@@ -9,11 +9,15 @@ const DINGTALK_WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=7306
 // 添加上传到OSS的函数
 async function uploadToOSS(filePath) {
   try {
-    const fileName = filePath.startsWith('/') 
-      ? filePath.slice(1)  // 如果是绝对路径，去掉开头的斜杠
-      : filePath;          // 如果是相对路径，直接使用
+    const timestamp = Date.now();
+    const fileExt = path.extname(filePath);
+    const fileNameWithoutExt = path.basename(filePath, fileExt);
     
-    const result = await ossClient.put(fileName, filePath);
+    // 只修改 OSS 上的文件名，不改变本地文件
+    const ossFileName = `screenshots/${fileNameWithoutExt}_${timestamp}${fileExt}`;
+    
+    // 上传时使用新的 ossFileName，但读取原始 filePath
+    const result = await ossClient.put(ossFileName, filePath);
     console.log('OSS上传成功，URL:', result.url);
     return result.url;
   } catch (error) {
