@@ -96,9 +96,8 @@ test('系统登录及页面截图测试', async t => {
                 try {
                     await t
                         .click(Selector('button').withText('查 询'))
-                        .wait(10000);  // 等待10秒
+                        .wait(10000);
     
-                    // 再次检查是否存在"暂无数据"
                     noDataExists = await Selector('#report-center-table td')
                         .withText('暂无数据')
                         .exists;
@@ -112,17 +111,17 @@ test('系统登录及页面截图测试', async t => {
             if (noDataExists) {
                 console.log(`${screenshot.name} 暂无数据，开始截图`);
                 
-                const screenshotPath = `screenshots/${dateDir}/oms/${screenshot.fileName}.png`;
+                // 使用 pathPattern 选项
                 await t.takeScreenshot({
-                    path: path.join('screenshots', dateDir, systemDir, `${screenshot.fileName}.png`),
-                    fullPage: true
+                    pathPattern: `${dateDir}/${systemDir}/${screenshot.fileName}.png`
                 });
                 
-                console.log(`截图已保存: ${screenshotPath}`);
-                screenshotsTaken.push({
-                    path: screenshotPath,
-                    name: screenshot.name
-                });
+                if (fs.existsSync(screenshot.fullPath)) {
+                    console.log(`截图已保存: ${screenshot.fullPath}`);
+                    screenshotsTaken.push(screenshot);
+                } else {
+                    console.error(`截图未能保存: ${screenshot.fullPath}`);
+                }
             } else {
                 console.log(`${screenshot.name} 有数据，跳过截图`);
             }
@@ -130,6 +129,19 @@ test('系统登录及页面截图测试', async t => {
         } catch (error) {
             console.error(`处理过程出错: ${error}`);
         }
+    }
+
+    // 在截图配置后添加日志
+    console.log('截图保存目录结构：', {
+        baseDir: 'screenshots',
+        dateDir: dateDir,
+        systemDir: systemDir,
+        fullPathExample: reportScreenshots[0].fullPath
+    });
+
+    // 在发送前添加日志
+    if (screenshotsTaken.length > 0) {
+        console.log('准备发送的截图路径：', screenshotsTaken.map(s => s.fullPath));
     }
 
     // 在发送钉钉消息之前添加判断
@@ -143,16 +155,24 @@ test('系统登录及页面截图测试', async t => {
         }
     } else {
         // 如果有截图，处理并发送
-        const screenshotsToSend = screenshotsTaken.map(screenshot => {
-            const stats = fs.statSync(screenshot.fullPath);
-            console.log(`准备发送文件: ${screenshot.fullPath}, 大小: ${stats.size} bytes`);
-            
-            return {
-                path: screenshot.fullPath,
-                name: screenshot.name,
-                uploadPath: screenshot.fullPath
-            };
-        });
+        const screenshotsToSend = screenshotsTaken.filter(screenshot => {
+            try {
+                if (fs.existsSync(screenshot.fullPath)) {
+                    const stats = fs.statSync(screenshot.fullPath);
+                    console.log(`准备发送文件: ${screenshot.fullPath}, 大小: ${stats.size} bytes`);
+                    return true;
+                }
+                console.log(`文件不存在，跳过: ${screenshot.fullPath}`);
+                return false;
+            } catch (error) {
+                console.error(`处理文件失败: ${screenshot.fullPath}`, error);
+                return false;
+            }
+        }).map(screenshot => ({
+            path: screenshot.fullPath,  // 这里使用的是相同的路径
+            name: screenshot.name,
+            uploadPath: screenshot.fullPath  // 这里也使用相同的路径
+        }));
         
         try {
             await sendImagesToDingTalk(

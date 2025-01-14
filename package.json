@@ -10,7 +10,7 @@
   "scripts": {
     "test": "node run-tests.js",
     "test:cms": "testcafe chrome inspection_online_cms.js",
-    "test:oms": "testcafe chrome inspection_online_oms.js"
+    "test:oms": "testcafe chrome inspection_online_oms*.js"
   },
   "type": "module"
 }
