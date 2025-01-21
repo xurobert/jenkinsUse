@@ -7,18 +7,18 @@
             }
         },
         {
-            "name": "我创建的",
+            "name": "企业创建的",
             "selector": {
                 "base": "#main-content div",
-                "withText": "我创建的",
+                "withText": "企业创建的",
                 "nth": 4
             }
         },
         {
-            "name": "我参与的",
+            "name": "企业参建的",
             "selector": {
                 "base": "#main-content div",
-                "withText": "我参与的",
+                "withText": "企业参建的",
                 "nth": 4
             }
         },
