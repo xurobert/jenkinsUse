@@ -3,7 +3,7 @@
         {
             "name": "企业基础信息",
             "selector": {
-                "base": "div[data-v-29e1c6b6].ent-info"
+                "base": "div[data-v-755509c4].ent-info"
             }
         },
         {
@@ -175,7 +175,7 @@
             "name": "工人属性统计",
             "selector": {
                 "base": ".ant-tabs-tab-btn",
-                "withText": "工人属性统计"
+                "withText": "工人工种统计"
             },
             "needClick": {
                 "selector": {
